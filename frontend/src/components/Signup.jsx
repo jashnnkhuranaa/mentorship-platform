@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 function Signup() {
   const [name, setName] = useState('');
@@ -12,29 +13,25 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/signup', {
-        name,
-        email,
-        password,
-        role,
-      });
-      localStorage.setItem('token', res.data.token);
-      navigate('/profile');
+      const response = await axios.post('http://localhost:5000/api/auth/signup', { name, email, password, role });
+      localStorage.setItem('token', response.data.token);
+      toast.success('Signup successful! Redirecting...');
+      navigate('/dashboard');
     } catch (error) {
-      alert('Signup failed: ' + (error.response?.data.message || 'Server error'));
+      toast.error(error.response?.data?.message || 'Signup failed. Please try again.');
     }
   };
 
   return (
-    <div className="max-w-md mx-auto mt-6 p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4 text-center">Signup</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="p-4 max-w-md mx-auto">
+      <h2 className="text-2xl font-bold mb-4">Signup</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Name"
-          className="w-full p-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-2 border rounded"
           required
         />
         <input
@@ -42,7 +39,7 @@ function Signup() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
-          className="w-full p-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-2 border rounded"
           required
         />
         <input
@@ -50,29 +47,23 @@ function Signup() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
-          className="w-full p-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-2 border rounded"
           required
         />
         <select
           value={role}
           onChange={(e) => setRole(e.target.value)}
-          className="w-full p-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-2 border rounded"
         >
           <option value="junior">Junior</option>
           <option value="senior">Senior</option>
         </select>
-        <button
-          type="submit"
-          className="w-full p-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-        >
+        <button type="submit" className="w-full bg-green-500 text-white p-2 rounded">
           Signup
         </button>
       </form>
-      <p className="mt-4 text-center">
-        Already have an account?{' '}
-        <Link to="/login" className="text-blue-600 hover:underline">
-          Login
-        </Link>
+      <p className="mt-2 text-center">
+        Already have an account? <a href="/login" className="text-blue-500">Login</a>
       </p>
     </div>
   );
