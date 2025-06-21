@@ -5,6 +5,7 @@ import Profile from './components/Profile.jsx';
 import Chat from './components/Chat.jsx';
 import Booking from './components/Booking.jsx';
 import Home from './components/Home.jsx';
+import Services from './components/Services.jsx';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         <Route path="/chat/:seniorId" element={<Chat />} />
         <Route path="/booking/:seniorId" element={<Booking />} />
         <Route path="/" element={<Home />} />
-        <Route path="/services" element={<div>Services Page (Under Development)</div>} />
+        <Route path="/services" element={<Services />} />
         <Route path="/mentors" element={<div>Mentors Page (Under Development)</div>} />
         <Route path="*" element={<Navigate to="/login" />} /> {/* Fallback to login */}
       </Routes>
