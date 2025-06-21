@@ -11,9 +11,12 @@ function Dashboard() {
           placeholder="Describe your need... (e.g., 'Help with placement prep')"
           className="w-full p-3 rounded-l-md bg-gray-800 border border-gray-700 text-white focus:outline-none"
         />
-        <button className="bg-blue-600 p-3 rounded-r-md hover:bg-blue-700">
-          Search
-        </button>
+        <div className="flex justify-center">
+  <button className="bg-blue-600 p-3 rounded-r-md hover:bg-blue-700">
+    Search
+  </button>
+</div>
+
       </div>
       <div className="grid grid-cols-2 gap-4 w-full max-w-xl">
         <button className="bg-gray-800 p-3 rounded hover:bg-gray-700">Placement Prep</button>
